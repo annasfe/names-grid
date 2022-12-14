@@ -1,0 +1,40 @@
+main {
+  height: 65vh;
+  margin: 60px;
+}
+
+.controls {
+  padding-bottom: 50px;
+}
+
+.controls input,
+.controls button,
+.controls label {
+  margin-right: 6px;
+}
+
+#students {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#students-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding-top: 10px;
+  padding-bottom: 50px;
+}
+
+.student {
+  color: blue;
+  background-color: aqua;
+  text-align: center;
+  font-size: x-large;
+  padding: 30px;
+}
+
+.hide {
+  display: none;
+}
