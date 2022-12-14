@@ -1,1 +1,3 @@
-# names-grid
+# Simple names grid
+
+Practicing DOM manipulation, event listeners etc...
