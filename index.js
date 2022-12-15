@@ -4,7 +4,6 @@ let studentID = 1;
 
 let empty = document.getElementById("empty");
 let studentList = document.getElementById("students-grid");
-let featured = document.getElementById("featured");
 
 //get form and add event listener on submit, to grab all form inputs
 let form = document.querySelector("form");
@@ -16,14 +15,14 @@ function handleClick(event) {
 
   //Get form items
   let formItems = event.target.elements;
-  let name = formItems.firstname.value;
-  let lastname = formItems.lastname.value;
+  let name = formItems.name.value;
+  let url = formItems.url.value;
 
   //create a student object to store all info
   let student = {
     id: studentID,
-    firstname: name,
-    lastname: lastname,
+    name: name,
+    url: url,
   };
   studentID++;
 
@@ -41,17 +40,20 @@ function handleClick(event) {
 }
 
 function addNewStudent(student) {
-  //create box of type "span" (can be also div)
-  let gridItem = document.createElement("span");
+  //create box for image
+  let gridItem = document.createElement("div");
+  let img = document.createElement("img");
+  gridItem.append(img);
 
   //add some styling by adding the class "student" defined in styles.css
   gridItem.classList.add("student");
 
-  //add the name as text on the box and an id to the span
-  gridItem.innerHTML = student.firstname;
-  gridItem.id = student.id;
+  //add on the img element the src and an id
+  //we will use the id when we click the image to identify which one has been clicked
+  img.src = student.url;
+  img.id = student.id;
 
-  //append to the grid
+  //append the whole div with the image to the grid
   studentList.append(gridItem);
 }
 
@@ -59,11 +61,22 @@ function addNewStudent(student) {
 studentList.addEventListener("click", chooseItem);
 
 function chooseItem(event) {
-  if (event.target.tagName === "SPAN") {
-    console.log(event.target.innerHTML);
-    //your code here!
-    //1. get the event.target.id, so that we know which box has been clicked
-    //2. get the object with this id from the array of students
-    //3. pass the object to a new function that will create the featured section, using the info from the object
+  //grab the featured section elements you will need
+  let featured = document.querySelector("#featured");
+  let featuredimg = document.querySelector("#feat-img");
+  let featuredtext = document.querySelector("#feat-text");
+
+  if (event.target.tagName === "IMG") {
+    //filter array of students, find object with id equal to event.target.id (your clicked image id).
+    let chosen = studentsArray.find((item) => item.id == event.target.id);
+
+    //fill the elements of the featured section:
+    //- img with the stored url from object
+    //- title with the stored name from object
+    featuredimg.src = chosen.url;
+    featuredtext.innerHTML = chosen.name;
+
+    //make section appear by removing the "hide" class
+    featured.classList.remove("hide");
   }
 }
